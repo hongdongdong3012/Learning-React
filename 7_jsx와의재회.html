@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    #container {
+      padding: 50px;
+      background-color:#fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+
+
+  <script type="text/babel">
+    var container = document.querySelector("#container")
+
+    class Square extends React.Component {
+      render() {
+        var squareStyle = {
+          height: 150,
+          backgroundColor: this.props.color
+        };
+        return (
+          <div style={squareStyle}>
+
+          </div>
+        );
+      }
+    }
+    
+    class Label extends React.Component {
+      render () {
+        var labelStyle = {
+          fontFamily: "sans-serif",
+          fontWeight: "bold",
+          padding: 13,
+          margin: 0
+        };
+        return (
+          <p style={labelStyle}>{this.props.color}</p>
+        )
+      }
+    }
+
+    class Card extends React.Component {
+      render () {
+        var cardStyle = {
+          height:200,
+          width: 150,
+          padding: 0,
+          backgroundColor: "#fff",
+          boxShadow : "0px 0px 5px #666"
+        };
+        return (
+          <div style={cardStyle}> {</* 여기가 JSX이다. */}
+            <Square color={this.props.color} />
+            <Label color={this.props.color} />
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(
+      <div>
+        <Card color="#FF6663" />
+        <Card color="#FFA737" />
+      </div>,
+      container
+    )
+  </script>
+</body>
+</html>
+
+<!-- 
+    class Card extends React.Component {
+      render () {
+        var cardStyle = {
+          height:200,
+          width: 150,
+          padding: 0,
+          backgroundColor: "#fff",
+          boxShadow : "0px 0px 5px #666"
+        };
+        return (
+          <div style={cardStyle}> {</* 여기가 JSX이다. */}
+            <Square color={this.props.color} />
+            <Label color={this.props.color} />
+          </div>
+        )
+      }
+    }
+
+    이 부분에서 return 안이 JSX이다.
+    브라우저는 JSX와 관련해 아무것도 모른다. 
+    이는 브라우저가 이해할 수 있도록 자바스크립트로 변환해주는 바벨과 같은 필요한 이유입니다.
+    순수 자바스크립트로는 이렇게 변환될 것입니다.
+    return React.createElement(
+      "div",
+      { style : cardStyle },
+      React.createElement(Square, { color : this.props.color }),
+      React.createElement(Label, { color: this.props.color })
+    );
+
+    이러면 어디에도 JSX의 흔적이 없다.
+    JSX를 JS로 변환시켜주는 바벨 덕분에 트랜스파일 과정의 일부는 우리 눈에 보이지 않기 때문이다.
+    후반에는 변환된 JS가 파일로 생성되는 본격적인 빌드 환경의 일부로서 바벨의 사용법을 알아볼 것이다.
+
+
+
+    **특징
+    1. 표현식 평가
+    JSX는 자바스크립트처럼 취급된다. 
+    리턴되는 값을정적이 아닌 동적으로 생성되게 할 수 있다.
+
+    2. 복수의 엘리먼트 리턴
+    <> ... </> , <React.Fragment> ... </React.Fragment>
+
+    3. 인라인 CSS 사용불가
+
+    4. 주석
+    {/* */}
+
+    5. 대소문자 구별
+    대소문자 구별은 중요한 사항입니다.
+    HTML 엘리먼트를 사용할 때는 소문자를 사용하고,
+    컴포넌트를 나타낼 때는 그 이름에 대문자가 사용되어야 합니다.
+ -->
